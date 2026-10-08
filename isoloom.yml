@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# Scrapyd Unauthenticated Egg Upload RCE (Vulhub, by phith0n and the Vulhub contributors) as an Isoloom spec:
+# Vulhub's scrapy/scrapyd-unacc, vendored in app/, run from the published image vulhub/scrapyd:1.2.1.
+# `isoloom generate`, then `isoloom run docker`.
+version: 1
+name: vulhub-scrapy-scrapyd-unacc
+
+networks:
+  lab: { cidr: 10.61.43.0/24, internet: false }
+
+machines:
+  scrapyd:
+    networks: { lab: 10 }
+    services: [{ port: 6800, name: web, http: true, publish: 6800 }]
+    resources: { cpus: 1, memory_mb: 256 }
+    docker:
+      image: vulhub/scrapyd:1.2.1
+
+checks:
+  - name: Scrapyd answers
+    http: http://scrapyd:6800/
+    wait: 60
+  - name: the Scrapyd API answers without credentials
+    script: checks/api.sh
+    wait: 30
+
+message: |
+  Scrapyd 1.2.1 answers at http://localhost:{{ machines.scrapyd.services.0.publish }}/, no login.
+  Its API deploys projects as Python eggs. What runs when it loads one?
