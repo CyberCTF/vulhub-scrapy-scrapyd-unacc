@@ -94,7 +94,8 @@
       "vagrant": "needs `vm:` on scrapyd",
       "proxmox": "needs `vm:` on scrapyd",
       "cloud-vm": "needs `vm:` on scrapyd",
-      "external": "needs `external:` on scrapyd"
+      "external": "needs `external:` on scrapyd",
+      "cloud-services": "left out by `targets:`"
     }
   },
   "checks": {
