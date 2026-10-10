@@ -1,0 +1,62 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Read the flag",
+      "prompt": "Deploy a project of your own to the open Scrapyd API, run code on the server and read /ctf/flag.",
+      "check": {
+        "evidence": "SECRET",
+        "format": "FLAG{%s}"
+      },
+      "dev": "FLAG{dev-vulhub-scrapy-scrapyd-unacc}",
+      "hints": [
+        "The Scrapyd API accepts projects from anyone. Read the Scrapyd documentation for the endpoint that adds a version.",
+        "Scrapyd imports the project to list its spiders, which runs its code. The flag is at /ctf/flag."
+      ],
+      "steps": [
+        {
+          "key": "version",
+          "title": "Identify the service",
+          "prompt": "Which Scrapyd version answers on 6800? (version)",
+          "check": {
+            "answer_regex": "1\\.2\\.1"
+          }
+        },
+        {
+          "key": "auth",
+          "title": "Check authentication",
+          "prompt": "Does the API ask for credentials? (yes or no)",
+          "check": {
+            "answer": [
+              "no"
+            ]
+          }
+        },
+        {
+          "key": "format",
+          "title": "Name the format",
+          "prompt": "In which packaging format is the project uploaded? (one word)",
+          "check": {
+            "answer": [
+              "egg",
+              "python egg"
+            ]
+          }
+        },
+        {
+          "key": "class",
+          "title": "Name the weakness",
+          "prompt": "Which weakness class is this? (two words)",
+          "check": {
+            "answer": [
+              "unauthorized access",
+              "unauthenticated access",
+              "missing authentication",
+              "arbitrary file upload"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

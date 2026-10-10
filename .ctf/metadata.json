@@ -1,7 +1,7 @@
 {
   "title": "Scrapyd Unauthenticated Egg Upload RCE",
   "description": "Scrapyd 1.2.1 listening on port 6800 without authentication: addversion.json accepts a Python egg from anyone, and Scrapyd imports it (to list spiders) and runs it, so code in the egg runs on the server.",
-  "question": "Upload a malicious egg to the open Scrapyd API to run commands and get a shell.",
+  "question": "Upload a malicious egg to the open Scrapyd API to run commands on the server and read /ctf/flag.",
   "category": "WEB",
   "difficulty": 2,
   "evidence_kind": "SECRET"
